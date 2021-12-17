@@ -1,0 +1,42 @@
+version: "3.8"
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: Password123
+      MYSQL_DATABASE: DnDDB  
+  frontend:
+    image: frontend
+    build: ./frontend
+    environment:
+      MYSQL_USER: root
+      MYSQL_PWD: Password123
+      MYSQL_IP: mysql
+      MYSQL_DB: DnDDB
+      MYSQL_SK: lkj5hyk45g95p4hguipwv547p9gh
+    ports:
+    - target: 5000
+      published: 5000
+      protocol: tcp
+  service1:
+    image: service1
+    build: ./service1
+    ports:
+    - target: 5001
+      published: 5001
+      protocol: tcp
+  service2:
+    image: service2
+    build: ./service2
+    ports:
+    - target: 5002
+      published: 5002
+      protocol: tcp
+  backend:
+    image: backend
+    build: ./backend
+    ports:
+    - target: 5003
+      published: 5003
+      protocol: tcp
